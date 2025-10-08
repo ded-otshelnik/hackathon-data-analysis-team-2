@@ -7,7 +7,7 @@ from transformers import AutoTokenizer, AutoModel
 
 class PatentCategorizer:
     
-    def __init__(self, model_name="thellert/physbert_cased"):
+    def __init__(self, model_name):
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModel.from_pretrained(model_name)
         # Inference mode
@@ -18,15 +18,6 @@ class PatentCategorizer:
         self.categories = {}
         
     def get_text_embedding(self, text: str) -> np.ndarray:
-        """
-        Получить эмбеддинг для текста
-        
-        Args:
-            text: Текст для обработки
-            
-        Returns:
-            numpy array с эмбеддингом
-        """
         if text in self.embeddings_cache:
             return self.embeddings_cache[text]
         
